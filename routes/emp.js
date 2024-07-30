@@ -17,6 +17,6 @@ router.get('/admin',authorization,adminData);
 
 router.delete('/emp-delete/:id',authorization,deleteData);
 
-router.put('/emp-update/:id',authorization,updateData);
+router.put('/emp-update/:id',authorization,upload.single("coverImage"),updateData);
 
 module.exports = router;

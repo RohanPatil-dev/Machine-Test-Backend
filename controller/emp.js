@@ -96,7 +96,10 @@ async function deleteData(req, res) {
 
 async function updateData(req, res) {
     try {
-        const { name, email, contact, designation, gender, course, coverImage } = req.body;
+        const { name, email, contact, designation, gender, course } = req.body;
+
+        const coverImage = req.file
+        console.log(coverImage);
 
         const existedEmail = await emp.findOne({ email })
 
@@ -134,7 +137,7 @@ async function updateData(req, res) {
             const id = req.params.id;
 
             const existedEmail = await emp.findById(id)
-            const updatedData = await emp.findByIdAndUpdate(id, req.body)
+            const updatedData = await emp.findByIdAndUpdate(id,{name: name, email: email, contact: contact, designation: designation, gender: gender, course: course, coverImage: coverImage.filename})
 
             if(!updatedData){
                return res.send("Invalid id !")
@@ -144,9 +147,7 @@ async function updateData(req, res) {
             } else {
                 return res.send({ msg: `${updatedData.name}'s data updated successfully !`, data: updatedData })
             }
-            
-        })
-                  
+        })    
     }
     } catch (error) {
         return res.send({ err: "Data not found !" })
