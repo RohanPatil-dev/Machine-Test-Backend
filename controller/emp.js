@@ -127,6 +127,9 @@ async function updateData(req, res) {
         else if (!course) {
             return res.status(400).json({ err: "Course field is empty !" })
         }
+        else if (!coverImage) {
+            return res.status(400).json({ err: "Image field is empty !" })
+        }
         else if (existedEmail) {
             return res.status(400).json({ err: "Email is already exist !" })
         }
